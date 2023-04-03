@@ -1,10 +1,11 @@
 const args = process.argv.slice(2);
 const moves = args.length;
+const message = require("../locale.json");
 
 class Help {
   static help() {
     const table = new (require("cli-table3"))({
-      head: ["Moves"].concat(args),
+      head: [message.moves].concat(args),
       colWidths: [20].concat(Array(args.length).fill(10)),
       wordWrap: true,
     });
@@ -13,14 +14,14 @@ class Help {
       const row = [args[i]];
       for (let j = 0; j < moves; j++) {
         if (i === j) {
-          row.push("Draw");
+          row.push(message.resultDraw);
         } else if (
           (j > i && j - i <= moves / 2) ||
           (j < i && i - j > moves / 2)
         ) {
-          row.push("Win");
+          row.push(message.resultWin);
         } else {
-          row.push("Lose");
+          row.push(message.resultLose);
         }
       }
       table.push(row);

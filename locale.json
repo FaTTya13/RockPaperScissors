@@ -1,5 +1,21 @@
 {
    "notUnique": "Invalid input: All options must be different. Example: rock paper scissors spock lizard",
    "evenQuantity": "Invalid input: Count of your options must be odd number. Example: rock paper scissors OR rock paper scissors spock lizard",
-   "notEnoughtOptions": "Invalid input: Not enought options. Please print at least 3 options. Example: rock paper scissors"
+   "notEnoughtOptions": "Invalid input: Not enought options. Please print at least 3 options. Example: rock paper scissors",
+   "moves":"Moves",
+   "resultDraw":"Draw",
+   "resultWin":"Win",
+   "resultLose":"Lose",
+   "yourMove":"Your move: ",
+   "computerMove":"Computer move: ",
+   "youWin":"You win",
+   "youLose":"You lose",
+   "itsDraw":"It's a draw",
+   "gameTitle":"==== Rock-Paper-Scissors ====",
+   "hmac":"HMAC: ",
+   "hmacKey":"HMAC key:",
+   "help":"Help",
+   "exit":"Exit",
+   "playerChoice":"Your choice: ",
+   "goodbye":"Goodbye!"
 }

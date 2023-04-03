@@ -1,3 +1,5 @@
+const message = require("../locale.json");
+
 class GameRules {
   static getResult(playerMove, computerMove) {
     const moves = process.argv.slice(2);
@@ -28,13 +30,13 @@ class GameRules {
     const playerWinners = this.winners.get(userChoice);
     const playerLosers = this.losers.get(userChoice);
 
-    console.log(`Your move: ${userChoice}, Computer move: ${computerMove}`);
+    console.log(message.yourMove + userChoice + ', ' + message.computerMove + computerMove);
     if (playerWinners.has(computerMove)) {
-      return console.log("You win");
+      return console.log(message.youWin);
     } else if (playerLosers.has(computerMove)) {
-      return console.log("You lose");
+      return console.log(message.youLose);
     } else {
-      return console.log(`It's a Draw`);
+      return console.log(message.itsDraw);
     }
   }
 }

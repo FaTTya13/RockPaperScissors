@@ -1,15 +1,20 @@
-const args = process.argv.slice(2);
+const moveOptions = process.argv.slice(2);
 const Crypto = require("./modules/crypto");
 const Validation = require("./modules/validation");
 const Help = require("./modules/help");
 const readline = require("readline");
 const GameRules = require("./modules/rules");
+const message = require("./locale.json");
 
 const app = () => {
   const isValid = Validation.checkArgv();
   const token = Crypto.generateKey();
-  const computerChoice = args[Math.floor(Math.random() * args.length)];
+  const computerChoice = moveOptions[Math.floor(Math.random() * moveOptions.length)];
   const hmac = Crypto.generateHMAC(token, computerChoice);
+  const helpMenu = '?';
+  const exitGame = '0';
+  const minOptionsQty = 1;
+
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -18,29 +23,21 @@ const app = () => {
   isValid ? displayMenu() : process.exit();
 
   function displayMenu() {
-    console.log("==== Rock-Paper-Scissors ====");
-    console.log(`HMAC: ${hmac}`);
-    args.map((arg, i) => {
-      console.log(`${++i} - ${arg}`);
+    console.log(message.gameTitle + '\n' + message.hmac + hmac);
+    moveOptions.map((option, i) => {
+      console.log(`${++i} - ${option}`);
     });
-    console.log("? - Help");
-    console.log("0 - Exit");
-    rl.question("Your choice: ", (choice) => {
-      if (choice === "0") {
-        console.log("Goodbye!");
+    console.log(helpMenu + ' - ' + message.help + '\n' + exitGame + ' - ' + message.exit);
+    rl.question(message.playerChoice, (playerChoice) => {
+      if (playerChoice === exitGame) {
+        console.log(message.goodbye);
         rl.close();
-      } else if (choice === "?") {
+      } else if (playerChoice === helpMenu) {
         displayHelp();
       } else if (
-        choice === "1" ||
-        choice === "2" ||
-        choice === "3" ||
-        choice === "4" ||
-        choice === "5" ||
-        choice === "6" ||
-        choice === "7"
+        minOptionsQty >= playerChoice <= moveOptions.length
       ) {
-        playGame(parseInt(choice), computerChoice, token);
+        playGame(parseInt(playerChoice), computerChoice, token);
       } else {
         displayMenu();
       }
@@ -54,7 +51,7 @@ const app = () => {
 
   function playGame(userChoice, computerChoice, token) {
     GameRules.getResult(userChoice, computerChoice);
-    console.log(`HMAC key: ${token}`);
+    console.log(`${message.hmacKey} ${token}`);
     process.exit();
   }
 };
